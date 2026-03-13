@@ -52,14 +52,14 @@ export default function MovieDeck({ onOpenSaved }: Props) {
     return childRefs.current[idx]?.current ?? null;
   };
 
-  const swiped = (direction: string, movie: Movie, index: number) => {
+  const swiped = (direction: string, _movie: Movie, index: number) => {
     if (direction === "left" || direction === "right") {
-      setLastDirection(direction);
+      setLastDirection(direction as "left" | "right");
     }
     currentIndexRef.current = index - 1;
   };
 
-  const cardLeftScreen = (title: string, idx: number) => {
+  const cardLeftScreen = (_title: string, idx: number) => {
     const movie = deck.find((_, i) => i === idx);
     if (!movie) return;
 
@@ -134,7 +134,7 @@ export default function MovieDeck({ onOpenSaved }: Props) {
               flickOnSwipe={true}
               swipeThreshold={90}
               swipeRequirementType="position"
-              onSwipe={(dir) => swiped(dir as string, movie, index)}
+              onSwipe={(dir) => swiped(dir, movie, index)}
               onCardLeftScreen={() => cardLeftScreen(movie.original_title, index)}
             >
               <MovieCard movie={movie} />
